@@ -40,61 +40,62 @@ const RARITIES = {
   LEGENDARIO:    { label: "Legendario",    color: "#ffe33e", mult: 1.3 },
 };
 
-const B = (name, rarity, role, c) => ({ name, rarity, role, c });
+const B = (name, rarity, role, c, emoji, superName) => ({ name, rarity, role, c, emoji, superName });
 
+// Emoji = arma/estilo del brawler; superName = su Súper real (localizada)
 const BRAWLERS = [
   // Especial
-  B("Shelly", "ESPECIAL", "DESTRUCTOR", "#b44be0"),
-  B("Colt", "ESPECIAL", "TIRADOR", "#4b9be0"),
-  B("Bull", "ESPECIAL", "TANQUE", "#8b6a3a"),
-  B("Brock", "ESPECIAL", "TIRADOR", "#ff6b35"),
-  B("El Primo", "ESPECIAL", "TANQUE", "#37c837"),
-  B("Poco", "ESPECIAL", "APOYO", "#2fbfa0"),
-  B("Rosa", "ESPECIAL", "TANQUE", "#ff4fa0"),
-  B("Barley", "ESPECIAL", "CONTROLADOR", "#e0b84b"),
+  B("Shelly", "ESPECIAL", "DESTRUCTOR", "#b44be0", "🐚", "Súper Shell"),
+  B("Colt", "ESPECIAL", "TIRADOR", "#4b9be0", "🔫", "Ráfaga de Balas"),
+  B("Bull", "ESPECIAL", "TANQUE", "#8b6a3a", "🐂", "Embestida"),
+  B("Brock", "ESPECIAL", "TIRADOR", "#ff6b35", "🚀", "Lluvia de Cohetes"),
+  B("El Primo", "ESPECIAL", "TANQUE", "#37c837", "💪", "Codazo Volador"),
+  B("Poco", "ESPECIAL", "APOYO", "#2fbfa0", "🎸", "Bis"),
+  B("Rosa", "ESPECIAL", "TANQUE", "#ff4fa0", "🌺", "Plantón"),
+  B("Barley", "ESPECIAL", "CONTROLADOR", "#e0b84b", "🍾", "Última Ronda"),
   // Superespecial
-  B("Nita", "SUPERESPECIAL", "DESTRUCTOR", "#e0644b"),
-  B("Jessie", "SUPERESPECIAL", "CONTROLADOR", "#ff8a3d"),
-  B("Dynamike", "SUPERESPECIAL", "CONTROLADOR", "#ff3d3d"),
-  B("Tick", "SUPERESPECIAL", "CONTROLADOR", "#7a8aff"),
-  B("8-Bit", "SUPERESPECIAL", "TIRADOR", "#59d9ff"),
-  B("Rico", "SUPERESPECIAL", "TIRADOR", "#4be0c8"),
-  B("Darryl", "SUPERESPECIAL", "TANQUE", "#a56a2e"),
-  B("Penny", "SUPERESPECIAL", "TIRADOR", "#ffb63d"),
-  B("Carl", "SUPERESPECIAL", "DESTRUCTOR", "#3db8ff"),
-  B("Jacky", "SUPERESPECIAL", "TANQUE", "#ffaa3d"),
+  B("Nita", "SUPERESPECIAL", "DESTRUCTOR", "#e0644b", "🐻", "Oso Bruce"),
+  B("Jessie", "SUPERESPECIAL", "CONTROLADOR", "#ff8a3d", "🎒", "Torreta Scrappy"),
+  B("Dynamike", "SUPERESPECIAL", "CONTROLADOR", "#ff3d3d", "🧨", "Barril Explosivo"),
+  B("Tick", "SUPERESPECIAL", "CONTROLADOR", "#7a8aff", "⏲️", "Cabezazo"),
+  B("8-Bit", "SUPERESPECIAL", "TIRADOR", "#59d9ff", "🕹️", "Potenciador de Daño"),
+  B("Rico", "SUPERESPECIAL", "TIRADOR", "#4be0c8", "🎱", "Superrebote"),
+  B("Darryl", "SUPERESPECIAL", "TANQUE", "#a56a2e", "🛢️", "Rodillo Tonel"),
+  B("Penny", "SUPERESPECIAL", "TIRADOR", "#ffb63d", "💰", "Cañón Lola"),
+  B("Carl", "SUPERESPECIAL", "DESTRUCTOR", "#3db8ff", "⛏️", "Peonza"),
+  B("Jacky", "SUPERESPECIAL", "TANQUE", "#ffaa3d", "🚧", "¡Topo a la Vista!"),
   // Épico
-  B("Piper", "EPICO", "TIRADOR", "#ff7ab8"),
-  B("Pam", "EPICO", "APOYO", "#ffd03d"),
-  B("Frank", "EPICO", "TANQUE", "#3de08a"),
-  B("Bibi", "EPICO", "DESTRUCTOR", "#ff4b6e"),
-  B("Bea", "EPICO", "TIRADOR", "#ffdd3d"),
-  B("Nani", "EPICO", "TIRADOR", "#ff9e3d"),
-  B("Edgar", "EPICO", "DESTRUCTOR", "#b03dff"),
-  B("Griff", "EPICO", "TIRADOR", "#4bc96b"),
-  B("Grom", "EPICO", "CONTROLADOR", "#6e7aff"),
-  B("Fang", "EPICO", "DESTRUCTOR", "#ff5e3d"),
+  B("Piper", "EPICO", "TIRADOR", "#ff7ab8", "☂️", "Se Acabó"),
+  B("Pam", "EPICO", "APOYO", "#ffd03d", "🛠️", "Besito Sanador"),
+  B("Frank", "EPICO", "TANQUE", "#3de08a", "🔨", "Golpe Aturdidor"),
+  B("Bibi", "EPICO", "DESTRUCTOR", "#ff4b6e", "⚾", "Pompa Explosiva"),
+  B("Bea", "EPICO", "TIRADOR", "#ffdd3d", "🐝", "Colmena de Hierro"),
+  B("Nani", "EPICO", "TIRADOR", "#ff9e3d", "🛰️", "Dron Pip"),
+  B("Edgar", "EPICO", "DESTRUCTOR", "#b03dff", "🧣", "Salto Mortal"),
+  B("Griff", "EPICO", "TIRADOR", "#4bc96b", "💵", "Cerdito Hucha"),
+  B("Grom", "EPICO", "CONTROLADOR", "#6e7aff", "💣", "Señal de Radio"),
+  B("Fang", "EPICO", "DESTRUCTOR", "#ff5e3d", "👟", "Patada Voladora"),
   // Mítico
-  B("Mortis", "MITICO", "DESTRUCTOR", "#6e3dff"),
-  B("Tara", "MITICO", "CONTROLADOR", "#b84bff"),
-  B("Gene", "MITICO", "APOYO", "#4b6eff"),
-  B("Max", "MITICO", "APOYO", "#ffe03d"),
-  B("Byron", "MITICO", "APOYO", "#6bd44b"),
-  B("Squeak", "MITICO", "CONTROLADOR", "#4bffd4"),
-  B("Buzz", "MITICO", "DESTRUCTOR", "#ffcc3d"),
-  B("Otis", "MITICO", "CONTROLADOR", "#ff4bd4"),
-  B("Cordelius", "MITICO", "DESTRUCTOR", "#8a4bff"),
-  B("Surge", "MITICO", "DESTRUCTOR", "#3de0ff"),
-  B("Melody", "MITICO", "DESTRUCTOR", "#ff6bd4"),
+  B("Mortis", "MITICO", "DESTRUCTOR", "#6e3dff", "🦇", "Enjambre de Murciélagos"),
+  B("Tara", "MITICO", "CONTROLADOR", "#b84bff", "🔮", "Portal de Gravedad"),
+  B("Gene", "MITICO", "APOYO", "#4b6eff", "🧞", "Mano Mágica"),
+  B("Max", "MITICO", "APOYO", "#ffe03d", "🥤", "¡Vamos!"),
+  B("Byron", "MITICO", "APOYO", "#6bd44b", "🧪", "Tratamiento Completo"),
+  B("Squeak", "MITICO", "CONTROLADOR", "#4bffd4", "🫧", "Superpegote"),
+  B("Buzz", "MITICO", "DESTRUCTOR", "#ffcc3d", "🛟", "Torpedo Salvavidas"),
+  B("Otis", "MITICO", "CONTROLADOR", "#ff4bd4", "🦑", "Silencio"),
+  B("Cordelius", "MITICO", "DESTRUCTOR", "#8a4bff", "🍄", "Reino de las Sombras"),
+  B("Surge", "MITICO", "DESTRUCTOR", "#3de0ff", "⚡", "Sobrecarga"),
+  B("Melody", "MITICO", "DESTRUCTOR", "#ff6bd4", "🎤", "Interludio"),
   // Legendario
-  B("Spike", "LEGENDARIO", "CONTROLADOR", "#6be04b"),
-  B("Crow", "LEGENDARIO", "CONTROLADOR", "#7a5cff"),
-  B("Leon", "LEGENDARIO", "DESTRUCTOR", "#4be06b"),
-  B("Sandy", "LEGENDARIO", "CONTROLADOR", "#d9b96b"),
-  B("Amber", "LEGENDARIO", "CONTROLADOR", "#ff8a3d"),
-  B("Meg", "LEGENDARIO", "TIRADOR", "#ff3d8a"),
-  B("Chester", "LEGENDARIO", "DESTRUCTOR", "#ff4b4b"),
-  B("Kit", "LEGENDARIO", "APOYO", "#ffb84b"),
+  B("Spike", "LEGENDARIO", "CONTROLADOR", "#6be04b", "🌵", "¡Ahí Quieto!"),
+  B("Crow", "LEGENDARIO", "CONTROLADOR", "#7a5cff", "🗡️", "Picado"),
+  B("Leon", "LEGENDARIO", "DESTRUCTOR", "#4be06b", "🍃", "Bomba de Humo"),
+  B("Sandy", "LEGENDARIO", "CONTROLADOR", "#d9b96b", "🌪️", "Tormenta de Arena"),
+  B("Amber", "LEGENDARIO", "CONTROLADOR", "#ff8a3d", "🔥", "Fogonazo"),
+  B("Meg", "LEGENDARIO", "TIRADOR", "#ff3d8a", "🦾", "Mecameg"),
+  B("Chester", "LEGENDARIO", "DESTRUCTOR", "#ff4b4b", "🃏", "¡Campanazo!"),
+  B("Kit", "LEGENDARIO", "APOYO", "#ffb84b", "🐱", "Achuchón"),
 ];
 
 const RARITY_ORDER = ["ESPECIAL", "SUPERESPECIAL", "EPICO", "MITICO", "LEGENDARIO"];
@@ -131,6 +132,7 @@ function makeAlly(brawler, slot) {
   const maxHp = Math.round(role.hp * mult);
   return {
     uid: UID++, name: brawler.name, initials: initialsOf(brawler.name),
+    emoji: brawler.emoji, superName: brawler.superName,
     color: brawler.c, role: brawler.role, rarity: brawler.rarity,
     side: "ally", slot, boss: false, clone: false,
     maxHp, hp: maxHp, atk: Math.round(role.atk * mult),
@@ -145,7 +147,7 @@ function makeEnemy(tpl, slot, bornAt) {
   const maxHp = Math.round(tpl.hp);
   return {
     uid: UID++, name: tpl.name, initials: tpl.initials, color: tpl.color,
-    role: tpl.role || "BOT", rarity: null, side: "enemy", slot,
+    emoji: tpl.emoji, role: tpl.role || "BOT", rarity: null, side: "enemy", slot,
     boss: !!tpl.boss, clone: !!tpl.clone,
     maxHp, hp: maxHp, atk: Math.round(tpl.atk),
     interval: tpl.interval, range: tpl.range,
@@ -162,7 +164,7 @@ function darkClone(scale, exclude) {
   const b = pick(pool);
   const role = ROLES[b.role];
   return {
-    name: "Dark " + b.name, initials: initialsOf(b.name), color: b.c,
+    name: "Dark " + b.name, initials: initialsOf(b.name), color: b.c, emoji: b.emoji,
     role: b.role, clone: true, range: role.range, interval: role.interval,
     hp: role.hp * 0.85 * scale, atk: role.atk * 0.9 * scale,
   };
@@ -171,19 +173,19 @@ function darkClone(scale, exclude) {
 // Genera las 3 olas: robots de Brawl Stars mezclados al azar con clones oscuros
 function generateWaves(squadNames) {
   const scrappy = () => ({
-    name: "Scrappy Bot", initials: "SB", color: "#9ba7c9", role: "BOT",
+    name: "Scrappy Bot", initials: "SB", color: "#9ba7c9", role: "BOT", emoji: "🤖",
     range: "melee", interval: 1350, hp: 3200, atk: 195,
   });
   const shooter = () => ({
-    name: "Robot Tirador", initials: "RT", color: "#6bd0ff", role: "BOT",
+    name: "Robot Tirador", initials: "RT", color: "#6bd0ff", role: "BOT", emoji: "🎯",
     range: "ranged", interval: 1250, hp: 2800, atk: 275,
   });
   const boxer = () => ({
-    name: "Robot Boxeador", initials: "RB", color: "#ff8a5c", role: "BOT",
+    name: "Robot Boxeador", initials: "RB", color: "#ff8a5c", role: "BOT", emoji: "🥊",
     range: "melee", interval: 1600, hp: 6200, atk: 330,
   });
   const boss = () => ({
-    name: "MECHA BOSS", initials: "MB", color: "#ff4b5c", role: "BOSS",
+    name: "MECHA BOSS", initials: "MB", color: "#ff4b5c", role: "BOSS", emoji: "👾",
     range: "ranged", interval: 1750, hp: 16500, atk: 400, boss: true,
   });
 
@@ -323,10 +325,10 @@ function SelectScreen({ squad, onToggle, onStart, muted, onMute }) {
                     className={"dex-card" + (sel >= 0 ? " selected" : "") + (full ? " locked" : "")}
                     style={{ "--rc": RARITIES[b.rarity].color, "--bc": b.c }}
                     onClick={() => onToggle(b)}
-                    title={`${ROLES[b.role].label} — Súper: ${ROLES[b.role].superDesc}`}
+                    title={`${ROLES[b.role].label} — Súper "${b.superName}": ${ROLES[b.role].superDesc}`}
                   >
                     {sel >= 0 && <span className="pick-badge">{sel + 1}</span>}
-                    <span className="dex-avatar"><i>{initialsOf(b.name)}</i></span>
+                    <span className="dex-avatar"><i>{b.emoji}</i></span>
                     <span className="dex-name">{b.name}</span>
                     <span className="dex-role"><RoleIcon size={11} strokeWidth={3} aria-hidden="true" />{ROLES[b.role].label}</span>
                   </button>
@@ -344,7 +346,7 @@ function SelectScreen({ squad, onToggle, onStart, muted, onMute }) {
             return b ? (
               <button key={i} className="slot filled" style={{ "--bc": b.c, "--rc": RARITIES[b.rarity].color }}
                 onClick={() => onToggle(b)} title={`Quitar a ${b.name}`}>
-                {initialsOf(b.name)}
+                {b.emoji}
               </button>
             ) : (
               <span key={i} className="slot empty">?</span>
@@ -396,6 +398,19 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
 
   const addFx = (g, fx) => g.fx.push({ id: UID++, born: g.t, ttl: 700, ...fx });
 
+  // Genera vectores aleatorios para las partículas de impacto (fijados al crearse
+  // para que no cambien entre re-renders)
+  const makeParts = (n, color) =>
+    Array.from({ length: n }, () => {
+      const ang = Math.random() * Math.PI * 2;
+      const dist = 20 + Math.random() * (n > 8 ? 55 : 30);
+      return {
+        dx: Math.cos(ang) * dist, dy: Math.sin(ang) * dist - 8,
+        c: Math.random() < 0.35 ? "#fff" : color,
+        s: 4 + Math.random() * 5, d: Math.random() * 0.1,
+      };
+    });
+
   const applyDamage = (g, target, amount, opts = {}) => {
     if (!target.alive) return;
     target.hp -= amount;
@@ -403,13 +418,18 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
     if (target.side === "ally") target.energy = Math.min(100, target.energy + ENERGY_PER_HIT);
     const p = posOf(target);
     addFx(g, {
-      type: "dmg", x: p.x + (Math.random() * 6 - 3), y: p.y - 9 - Math.random() * 5,
-      text: Math.round(amount), color: opts.color || (target.side === "enemy" ? "#ffe33e" : "#ff5e72"),
+      type: "dmg", x: p.x + (Math.random() * 6 - 3), y: p.y - 11 - Math.random() * 5,
+      text: Math.round(amount), color: opts.color || (target.side === "enemy" ? "#facc15" : "#ff5e72"),
       big: !!opts.big,
+    });
+    addFx(g, {
+      type: "spark", x: p.x, y: p.y - 4, ttl: 650,
+      parts: makeParts(opts.big ? 13 : 5, opts.sparkColor || opts.color || "#ffd34d"),
     });
     if (target.hp <= 0) {
       target.hp = 0; target.alive = false;
       addFx(g, { type: "ko", x: p.x, y: p.y, ttl: 900 });
+      addFx(g, { type: "spark", x: p.x, y: p.y, ttl: 900, parts: makeParts(14, "#ff8a5c") });
     }
   };
 
@@ -425,7 +445,7 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
     } else {
       sfx("hit");
     }
-    applyDamage(g, target, dmg);
+    applyDamage(g, target, dmg, { sparkColor: u.color });
   };
 
   // ---- Súper por rol: el corazón estilo Disney Heroes ----
@@ -436,7 +456,10 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
     u.energy = 0;
     sfx("super");
     g.phase = "banner";
-    g.banner = { kind: "super", title: `¡SÚPER DE ${u.name.toUpperCase()}!`, sub: role.superName, color: u.color, until: g.t + 1250 };
+    g.banner = {
+      kind: "super", title: `¡SÚPER DE ${u.name.toUpperCase()}!`,
+      sub: u.superName || role.superName, emoji: u.emoji, color: u.color, until: g.t + 1250,
+    };
 
     const foes = g.enemies.filter((e) => e.alive);
     const pals = g.allies.filter((a) => a.alive);
@@ -576,7 +599,7 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
       {/* ---- Zona de combate ---- */}
       <div className={"arena" + (shaking ? " shake" : "") + (g.phase === "walk" ? " walking" : "")}>
         <div className="arena-floor" style={{ backgroundPositionX: `${-(g.wave - 1) * 420}px` }} />
-        <div className="arena-props" style={{ backgroundPositionX: `${-(g.wave - 1) * 640}px` }} />
+        <MineDecor wave={g.wave} />
         <div className="arena-vignette" />
 
         <div className="hud">
@@ -609,6 +632,7 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
         {g.banner && g.t < g.banner.until && (
           <div className={"banner banner-" + g.banner.kind} style={{ "--bc": g.banner.color }}>
             <div className="banner-burst" />
+            {g.banner.emoji && <span className="banner-emoji">{g.banner.emoji}</span>}
             <span className="banner-sub">{g.banner.kind === "super" ? "★ HABILIDAD DEFINITIVA ★" : "— BRAWL —"}</span>
             <strong className="banner-title">{g.banner.title}</strong>
             <span className="banner-sub2">{g.banner.sub}</span>
@@ -633,6 +657,37 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
    Sprites, FX, tarjetas y overlays
    ------------------------------------------------------------ */
 
+// Decoración de la mina: gemas, vagonetas, arbustos, barriles, cajas y rocas.
+// Posiciones fijas sobre una capa al 150% de ancho que hace parallax entre olas.
+const DECOR = [
+  { t: "cart", x: 3, y: 8 }, { t: "cart", x: 112, y: 62 },
+  { t: "gem", x: 14, y: 62, s: 1 }, { t: "gem", x: 38, y: 24, s: 0.8, d: 0.4 },
+  { t: "gem", x: 47, y: 76, s: 1.25, d: 0.8 }, { t: "gem", x: 70, y: 14, s: 0.9, d: 0.2 },
+  { t: "gem", x: 64, y: 86, s: 1.1, d: 0.6 }, { t: "gem", x: 91, y: 44, s: 0.85, d: 1 },
+  { t: "gem", x: 107, y: 72, s: 1.2, d: 0.3 }, { t: "gem", x: 126, y: 22, s: 0.9, d: 0.7 },
+  { t: "gem", x: 139, y: 58, s: 1, d: 0.5 },
+  { t: "bush", x: 29, y: 5 }, { t: "bush", x: 55, y: 91 }, { t: "bush", x: 82, y: 4 },
+  { t: "bush", x: 101, y: 88 }, { t: "bush", x: 134, y: 84 },
+  { t: "barrel", x: 22, y: 88 }, { t: "barrel", x: 86, y: 91 },
+  { t: "barrel", x: 113, y: 8 }, { t: "barrel", x: 143, y: 10 },
+  { t: "crate", x: 5, y: 66 }, { t: "crate", x: 74, y: 90 },
+  { t: "rock", x: 10, y: -3 }, { t: "rock", x: 44, y: -4 }, { t: "rock", x: 96, y: -3 },
+  { t: "rock", x: 130, y: -4 }, { t: "rock", x: 26, y: 101 }, { t: "rock", x: 66, y: 102 },
+  { t: "rock", x: 120, y: 101 },
+];
+
+function MineDecor({ wave }) {
+  return (
+    <div className="decor" style={{ transform: `translateX(${-(wave - 1) * 12}%)` }} aria-hidden="true">
+      <div className="rails" />
+      {DECOR.map((d, i) => (
+        <span key={i} className={"deco " + d.t}
+          style={{ left: d.x + "%", top: d.y + "%", "--s": d.s || 1, animationDelay: (d.d || 0) + "s" }} />
+      ))}
+    </div>
+  );
+}
+
 function UnitSprite({ u, t, walking }) {
   const p = posOf(u);
   const attacking = t - u.lastAttack < 350;
@@ -641,6 +696,8 @@ function UnitSprite({ u, t, walking }) {
   const stunned = t < u.stunUntil;
   const poisoned = t < u.poisonUntil;
   const entering = t - u.bornAt < 550 && u.side === "enemy";
+  const glow = u.side === "ally" ? RARITIES[u.rarity].color
+    : u.boss ? "#ff4b5c" : u.clone ? "#a24bff" : "#8aa0c8";
   const cls = [
     "unit", u.side, u.boss ? "boss" : "", u.clone ? "clone" : "",
     u.alive ? "" : "dead",
@@ -650,12 +707,13 @@ function UnitSprite({ u, t, walking }) {
   ].filter(Boolean).join(" ");
 
   return (
-    <div className={cls} style={{ left: p.x + "%", top: p.y + "%", zIndex: Math.round(p.y), "--bc": u.color }}>
+    <div className={cls}
+      style={{ left: p.x + "%", top: p.y + "%", zIndex: Math.round(p.y), "--bc": u.color, "--glow": glow }}>
       <div className="unit-hp">
         <i style={{ width: Math.max(0, (u.hp / u.maxHp) * 100) + "%" }} />
       </div>
       <div className="unit-body">
-        <span className="unit-face">{u.initials}</span>
+        <span className="unit-emoji">{u.emoji || "🤖"}</span>
         {stunned && <span className="stun-stars" aria-hidden="true">✦ ✦ ✦</span>}
       </div>
       <span className="unit-name">{u.name}</span>
@@ -668,6 +726,20 @@ function FxLayer({ fx, t }) {
   return (
     <div className="fx-layer" aria-hidden="true">
       {fx.map((f) => {
+        if (f.type === "spark") {
+          return (
+            <span key={f.id} className="fx-sparks" style={{ left: f.x + "%", top: f.y + "%" }}>
+              {f.parts.map((p, i) => (
+                <i key={i} style={{
+                  "--dx": p.dx + "px", "--dy": p.dy + "px",
+                  width: p.s + "px", height: p.s + "px",
+                  background: p.c, boxShadow: `0 0 8px ${p.c}`,
+                  animationDelay: p.d + "s",
+                }} />
+              ))}
+            </span>
+          );
+        }
         if (f.type === "dmg") {
           return (
             <span key={f.id} className={"fx-dmg" + (f.big ? " big" : "")}
@@ -713,10 +785,10 @@ function BrawlerCard({ u, t, onSuper }) {
       onClick={onSuper}
       disabled={!ready}
       aria-label={ready ? `Activar Súper de ${u.name}` : u.name}
-      title={ready ? `¡SÚPER lista! ${ROLES[u.role].superDesc}` : ROLES[u.role].superDesc}
+      title={`Súper "${u.superName}": ${ROLES[u.role].superDesc}`}
     >
       <span className="card-avatar">
-        <i>{u.initials}</i>
+        <i>{u.emoji}</i>
         <em className="card-role"><RoleIcon size={11} strokeWidth={3} aria-hidden="true" /></em>
       </span>
       <span className="card-name">{u.name}</span>
@@ -726,7 +798,7 @@ function BrawlerCard({ u, t, onSuper }) {
       <span className="bar sp-bar" role="img" aria-label={`Súper ${Math.round(u.energy)}%`}>
         <i style={{ width: u.energy + "%" }} />
       </span>
-      {ready && <span className="super-tag"><Zap size={12} strokeWidth={3} aria-hidden="true" /> ¡SÚPER!</span>}
+      {ready && <span className="super-tag"><Zap size={12} strokeWidth={3} aria-hidden="true" /> ¡SÚPER LISTO!</span>}
       {!u.alive && <span className="ko-tag"><Skull size={14} aria-hidden="true" /></span>}
     </button>
   );
