@@ -23,7 +23,10 @@ run("npx @tailwindcss/cli -i src/styles.css -o dist/tw.css --minify");
 
 // 3. HTML final (sin doctype/html/head/body: lo añade el publicador de Artifacts)
 const font = readFileSync("lilita-latin.b64", "utf8").trim();
-const css = readFileSync("dist/tw.css", "utf8").replace("__LILITA_B64__", font);
+const floor = readFileSync("mine-floor.b64", "utf8").trim();
+const css = readFileSync("dist/tw.css", "utf8")
+  .replace("__LILITA_B64__", font)
+  .replace("__FLOOR_B64__", floor);
 let js = readFileSync("dist/app.js", "utf8").replace(/<\/script/gi, "<\\/script");
 
 const html = `<title>Brawl Stars: Squad Battler</title>

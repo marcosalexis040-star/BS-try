@@ -199,11 +199,8 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
     inset 0 2px 4px rgb(255 255 255 / 0.3);
 }
 .dex-avatar { width: 46px; height: 46px; }
-.dex-avatar i, .card-avatar i {
-  font-style: normal;
-  font-size: 1.5rem;
-  line-height: 1;
-  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.55));
+.dex-avatar svg, .card-avatar svg, .slot.filled svg {
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.5));
 }
 .dex-name {
   font-family: var(--display);
@@ -251,8 +248,6 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
 }
 .slot.filled {
   border: 2.5px solid color-mix(in srgb, var(--rc) 80%, white);
-  font-size: 1.3rem;
-  line-height: 1;
 }
 .squad-count {
   display: inline-flex;
@@ -336,12 +331,13 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
 .arena-floor {
   position: absolute;
   inset: 0;
+  /* Suelo continuo de mina: textura procedural de losas + luz irregular encima */
   background:
-    radial-gradient(90% 75% at 50% 45%, rgb(255 214 150 / 0.09), transparent 62%),
-    repeating-linear-gradient(0deg, rgb(12 10 20 / 0.5) 0 2px, transparent 2px 76px),
-    repeating-linear-gradient(90deg, rgb(12 10 20 / 0.5) 0 2px, transparent 2px 76px),
-    repeating-conic-gradient(rgb(138 128 158 / 0.42) 0% 25%, rgb(96 88 120 / 0.42) 25% 50%) 0 0 / 152px 152px,
-    linear-gradient(180deg, #4a2008 0%, #232c54 46%, #292420 100%);
+    radial-gradient(90% 75% at 50% 42%, rgb(255 214 150 / 0.13), transparent 62%),
+    radial-gradient(60% 50% at 18% 80%, rgb(20 14 30 / 0.4), transparent 70%),
+    radial-gradient(55% 45% at 84% 22%, rgb(20 14 30 / 0.34), transparent 70%),
+    linear-gradient(180deg, rgb(74 32 8 / 0.3) 0%, rgb(22 24 44 / 0.22) 46%, rgb(24 20 18 / 0.38) 100%),
+    url("data:image/png;base64,__FLOOR_B64__") 0 0 / 460px 460px repeat;
   transition: background-position-x 1.5s ease-in-out;
 }
 
@@ -455,6 +451,14 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
   background: radial-gradient(circle at 35% 25%, #6d6a75, #46434e 60%, #2c2a33);
   box-shadow: 0 8px 10px rgb(0 0 0 / 0.5), inset 0 -6px 10px rgb(0 0 0 / 0.35);
 }
+.deco.stain {
+  width: 110px;
+  height: 68px;
+  border-radius: 58% 42% 55% 45% / 52% 55% 45% 48%;
+  background: radial-gradient(closest-side, rgb(10 8 16 / 0.3), rgb(10 8 16 / 0.15) 60%, transparent);
+  filter: blur(3px);
+}
+.deco.crack { opacity: 0.9; overflow: visible; }
 
 .arena-vignette {
   position: absolute;
@@ -463,6 +467,7 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
   background:
     linear-gradient(180deg, rgb(20 10 4 / 0.78) 0%, transparent 22%),
     radial-gradient(120% 100% at 50% 55%, transparent 52%, rgb(10 8 18 / 0.62) 100%);
+  box-shadow: inset 0 0 90px 20px rgb(8 6 14 / 0.7);
 }
 .arena.shake { animation: shake 0.4s linear; }
 @keyframes shake {
@@ -550,95 +555,108 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
   filter: blur(2px);
   z-index: -1;
 }
-.unit-hp {
-  width: 46px;
-  height: 7px;
-  margin-bottom: 3px;
-  border-radius: 999px;
-  background: rgb(7 10 28 / 0.8);
+/* Etiqueta flotante estilo Supercell: nombre con contorno negro agresivo
+   sobre una barra de vida con borde negro de 3px */
+.unit-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+.unit-name {
+  max-width: 88px;
   overflow: hidden;
-  box-shadow: 0 1px 0 rgb(255 255 255 / 0.1);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--display);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow:
+    -1.5px 0 0 #000, 1.5px 0 0 #000, 0 -1.5px 0 #000, 0 1.5px 0 #000,
+    -1px -1px 0 #000, 1px 1px 0 #000, 0 2px 3px #000;
+}
+.unit-hp {
+  width: 56px;
+  height: 13px;
+  border: 3px solid #05060c;
+  border-radius: 999px;
+  background: #252c42;
+  overflow: hidden;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.45);
 }
 .unit-hp i {
   display: block;
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(180deg, #8af08a, var(--hp));
+  background: linear-gradient(180deg, #9ef07e 0%, #4ed44e 55%, #2ea82e 100%);
+  box-shadow: inset 0 1.5px 0 rgb(255 255 255 / 0.55);
   transition: width 0.25s ease;
 }
-.unit.enemy .unit-hp i { background: linear-gradient(180deg, #ff8a97, var(--danger)); }
-/* Mini tarjeta de combate: placa con gradiente del brawler + neón de rareza */
+.unit.enemy .unit-hp i { background: linear-gradient(180deg, #ff9aa4, #ff4b5c 55%, #d42838 100%); }
+/* El retrato SVG flota directamente sobre el mapa con neón de rareza */
 .unit-body {
   position: relative;
-  width: 50px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   display: grid;
   place-items: center;
-  border-radius: 14px;
-  border: 2.5px solid rgb(10 8 20 / 0.68);
-  background: linear-gradient(180deg,
-    color-mix(in srgb, var(--bc) 55%, white) -25%,
-    var(--bc) 48%,
-    color-mix(in srgb, var(--bc) 45%, black) 120%);
-  box-shadow:
-    0 0 14px color-mix(in srgb, var(--glow, #8aa0c8) 60%, transparent),
-    0 5px 9px rgb(0 0 0 / 0.48),
-    inset 0 -6px 10px rgb(0 0 0 / 0.3),
-    inset 0 3px 5px rgb(255 255 255 / 0.28);
+  filter:
+    drop-shadow(0 0 7px color-mix(in srgb, var(--glow, #8aa0c8) 75%, transparent))
+    drop-shadow(0 4px 4px rgb(0 0 0 / 0.5));
 }
-.unit-emoji {
-  font-size: 1.75rem;
-  line-height: 1;
-  filter: drop-shadow(0 3px 3px rgb(0 0 0 / 0.6));
-}
-.unit-name {
-  margin-top: 3px;
-  max-width: 76px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--display);
-  font-size: 0.6rem;
-  letter-spacing: 0.05em;
-  color: rgb(255 246 227 / 0.85);
-  text-shadow: 0 1px 2px rgb(0 0 0 / 0.7);
-}
+.face-svg { display: block; }
 .unit.boss .unit-body {
-  width: 84px;
-  height: 92px;
-  border-width: 4px;
-  border-radius: 20px;
-  box-shadow:
-    0 0 26px rgb(255 75 92 / 0.8),
-    0 8px 14px rgb(0 0 0 / 0.55),
-    inset 0 -8px 14px rgb(0 0 0 / 0.35),
-    inset 0 4px 6px rgb(255 255 255 / 0.25);
+  width: 88px;
+  height: 88px;
+  filter:
+    drop-shadow(0 0 16px rgb(255 75 92 / 0.85))
+    drop-shadow(0 7px 8px rgb(0 0 0 / 0.55));
 }
-.unit.boss .unit-emoji { font-size: 2.9rem; }
-.unit.boss .unit-hp { width: 78px; height: 9px; }
-.unit.boss .unit-name { color: var(--danger); font-size: 0.7rem; max-width: 110px; }
+.unit.boss .unit-hp { width: 84px; height: 15px; }
+.unit.boss .unit-name { color: #ff8a97; font-size: 0.72rem; max-width: 120px; }
 .unit.boss .unit-shadow { width: 72px; }
 .unit.clone .unit-body {
-  filter: saturate(0.55) brightness(0.72);
-  box-shadow: inset 0 -5px 9px rgb(0 0 0 / 0.4), 0 0 14px rgb(162 75 255 / 0.75);
-  border-color: var(--purple);
+  filter:
+    saturate(0.45) brightness(0.6)
+    drop-shadow(0 0 10px rgb(162 75 255 / 0.95))
+    drop-shadow(0 4px 4px rgb(0 0 0 / 0.5));
 }
 .unit.dead { opacity: 0.16; }
 .unit.dead .unit-body { filter: grayscale(1); transform: scale(0.85) rotate(12deg); }
-.unit.dead .unit-hp, .unit.dead .unit-shadow { visibility: hidden; }
+.unit.dead .unit-tag, .unit.dead .unit-shadow { visibility: hidden; }
 
 .unit.lunge-r .unit-body { animation: lunge-r 0.32s ease; }
 .unit.lunge-l .unit-body { animation: lunge-l 0.32s ease; }
 @keyframes lunge-r { 40% { transform: translateX(24px) rotate(8deg); } }
 @keyframes lunge-l { 40% { transform: translateX(-24px) rotate(-8deg); } }
-.unit.hurt .unit-body { animation: hurt-flash 0.26s linear; }
-@keyframes hurt-flash {
-  30% { filter: brightness(2.4) saturate(0.4); transform: translateX(-3px); }
-  60% { transform: translateX(3px); }
+/* Golpe recibido: flash ROJO sobre la cara + sacudida física */
+.unit.hurt .unit-body { animation: hurt-shake 0.2s linear; }
+.unit.hurt .unit-body::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: rgb(255 45 45 / 0.6);
+  animation: hurt-fade 0.24s ease-out forwards;
+  pointer-events: none;
 }
-.unit.healed .unit-body { box-shadow: 0 0 20px rgb(88 224 88 / 0.9), inset 0 -5px 9px rgb(0 0 0 / 0.32); }
-.unit.poisoned .unit-body { box-shadow: 0 0 16px rgb(162 75 255 / 0.9), inset 0 -5px 9px rgb(0 0 0 / 0.32); }
-.unit.stunned .unit-body { filter: saturate(0.4) brightness(0.85); }
+@keyframes hurt-shake {
+  25% { translate: -4px 0; }
+  50% { translate: 3px 0; }
+  75% { translate: -2px 0; }
+}
+@keyframes hurt-fade { to { opacity: 0; } }
+.unit.healed .unit-body {
+  filter: drop-shadow(0 0 10px rgb(88 224 88 / 0.95)) drop-shadow(0 4px 4px rgb(0 0 0 / 0.5));
+}
+.unit.poisoned .unit-body {
+  filter: drop-shadow(0 0 10px rgb(162 75 255 / 0.95)) drop-shadow(0 4px 4px rgb(0 0 0 / 0.5));
+}
+.unit.stunned .unit-body {
+  filter: saturate(0.4) brightness(0.85) drop-shadow(0 4px 4px rgb(0 0 0 / 0.5));
+}
 .stun-stars {
   position: absolute;
   top: -16px;
@@ -694,18 +712,77 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
   from { translate: 0 0; opacity: 1; scale: 1; }
   to { translate: var(--dx) var(--dy); opacity: 0; scale: 0.15; }
 }
+/* Proyectiles: ráfagas alargadas con estela, orientadas hacia el objetivo */
 .fx-shot, .fx-bigshot {
   position: absolute;
   left: var(--x0);
   top: var(--y0);
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  background: var(--c);
-  box-shadow: 0 0 8px var(--c);
+  translate: -50% -50%;
+  rotate: var(--rot, 0deg);
   animation: fly 0.3s linear forwards;
 }
-.fx-shot { width: 15px; height: 6px; }
-.fx-bigshot { width: 30px; height: 11px; box-shadow: 0 0 20px var(--c), 0 0 40px var(--c); animation-duration: 0.42s; }
+.fx-shot {
+  width: 38px;
+  height: 7px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--c) 45%, transparent) 35%,
+    var(--c) 75%, #fff 96%);
+  box-shadow: 0 0 10px var(--c);
+}
+.fx-bigshot {
+  width: 66px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--c) 55%, #fff 94%);
+  box-shadow: 0 0 22px var(--c), 0 0 44px var(--c);
+  animation-duration: 0.42s;
+}
+/* Orbe con estela (controladores, apoyos, jefe) */
+.fx-shot.k-orb {
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--c) 55%, color-mix(in srgb, var(--c) 60%, black));
+  box-shadow: 0 0 12px var(--c);
+}
+.fx-shot.k-orb::before {
+  content: "";
+  position: absolute;
+  right: 65%;
+  top: 50%;
+  translate: 0 -50%;
+  width: 28px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--c));
+  opacity: 0.8;
+}
+/* Las tres dagas de Crow */
+.fx-shot.k-daggers {
+  width: 44px;
+  height: 17px;
+  border-radius: 0;
+  background:
+    linear-gradient(90deg, transparent 30%, var(--c) 72%, #ffe33e 96%) 0 1px / 100% 3.5px no-repeat,
+    linear-gradient(90deg, transparent 10%, var(--c) 60%, #ffe33e 96%) 0 6.8px / 100% 3.5px no-repeat,
+    linear-gradient(90deg, transparent 30%, var(--c) 72%, #ffe33e 96%) 0 12.5px / 100% 3.5px no-repeat;
+  box-shadow: none;
+  filter: drop-shadow(0 0 6px var(--c));
+}
+/* La bola de pinchos de Spike */
+.fx-shot.k-spikeball {
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  background: radial-gradient(circle at 38% 32%, color-mix(in srgb, var(--c) 60%, white), var(--c) 60%);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  box-shadow: none;
+  filter: drop-shadow(0 0 8px var(--c));
+  animation: fly 0.3s linear forwards, spin-ball 0.3s linear infinite;
+}
+@keyframes spin-ball { to { rotate: 360deg; } }
 @keyframes fly { to { left: var(--x1); top: var(--y1); } }
 .fx-slash {
   position: absolute;
@@ -756,13 +833,14 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
   mask-image: radial-gradient(circle, #000 0%, transparent 62%);
 }
 @keyframes burst-spin { to { rotate: 360deg; } }
-.banner-emoji {
+.banner-face {
   z-index: 1;
-  font-size: clamp(2.4rem, 7vw, 3.8rem);
-  line-height: 1;
-  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.6));
+  filter: drop-shadow(0 8px 14px rgb(0 0 0 / 0.65));
   animation: banner-in 0.32s cubic-bezier(0.2, 1.6, 0.4, 1) backwards;
 }
+/* Ojo rojo de los robots: pulso amenazante */
+.bot-eye { animation: bot-eye 1.6s ease-in-out infinite; }
+@keyframes bot-eye { 50% { opacity: 0.55; } }
 .banner-sub, .banner-sub2 {
   font-family: var(--display);
   letter-spacing: 0.3em;
@@ -996,7 +1074,7 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
 
 @media (prefers-reduced-motion: reduce) {
   .banner-burst, .card.ready, .battle-btn.ready, .pip.now,
-  .unit.strut .unit-body, .super-tag, .stun-stars, .deco.gem { animation: none; }
+  .unit.strut .unit-body, .super-tag, .stun-stars, .deco.gem, .bot-eye { animation: none; }
   .arena.shake { animation: none; }
   .arena-floor, .decor { transition: none; }
 }
