@@ -607,6 +607,95 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
     drop-shadow(0 4px 4px rgb(0 0 0 / 0.5));
 }
 .face-svg { display: block; }
+
+/* ===== Shelly: sprite de cuerpo completo animado ===== */
+.unit.fullbody .unit-body {
+  width: auto;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--glow, #b44be0) 70%, transparent));
+}
+.shelly { position: relative; }
+.unit.enemy.fullbody .shelly { transform: scaleX(-1); }   /* enemigos miran a la izquierda */
+.shelly-svg { display: block; margin-bottom: -14px; }      /* pies cerca del punto de anclaje */
+.sh-shadow { animation: none; }
+/* orígenes para las partes que rotan/escalan */
+.sh-body, .sh-upper, .sh-gun, .sh-flash, .sh-shells, .sh-head { transform-box: fill-box; }
+.sh-legB, .sh-legF { transform-box: fill-box; transform-origin: 50% 8%; }
+.sh-upper { transform-origin: 50% 96%; }
+.sh-gun { transform-origin: 40% 50%; }
+.sh-flash { transform-origin: 0% 50%; opacity: 0; }
+.sh-shells { opacity: 0; }
+
+/* IDLE — respiración suave */
+.shelly.st-idle .sh-body { animation: sh-breathe 2.6s ease-in-out infinite; }
+.shelly.st-idle .sh-head { animation: sh-headbob 2.6s ease-in-out infinite; }
+@keyframes sh-breathe { 50% { transform: translateY(-2px); } }
+@keyframes sh-headbob { 50% { transform: translateY(-1px) rotate(-1.5deg); } }
+
+/* RUN — ciclo de piernas + inclinación hacia delante */
+.shelly.st-run .sh-body { animation: sh-runbob 0.42s ease-in-out infinite; }
+.shelly.st-run .sh-upper { transform: rotate(-6deg); }
+.shelly.st-run .sh-legF { animation: sh-stepF 0.42s ease-in-out infinite; }
+.shelly.st-run .sh-legB { animation: sh-stepB 0.42s ease-in-out infinite; }
+@keyframes sh-runbob { 25% { transform: translateY(-4px); } 75% { transform: translateY(-1px); } }
+@keyframes sh-stepF { 0%,100% { transform: rotate(22deg); } 50% { transform: rotate(-22deg); } }
+@keyframes sh-stepB { 0%,100% { transform: rotate(-22deg); } 50% { transform: rotate(22deg); } }
+
+/* ATTACK — retroceso de escopeta + fogonazo + casquillos */
+.shelly.st-attack .sh-upper { animation: sh-kick 0.3s ease-out; }
+.shelly.st-attack .sh-gun { animation: sh-recoil 0.3s ease-out; }
+.shelly.st-attack .sh-flash { animation: sh-flash 0.3s ease-out; }
+.shelly.st-attack .sh-shells { animation: sh-shells 0.42s ease-out; }
+@keyframes sh-kick { 20% { transform: rotate(-7deg); } 100% { transform: rotate(0); } }
+@keyframes sh-recoil { 20% { transform: translateX(-7px) rotate(-4deg); } 100% { transform: translateX(0) rotate(0); } }
+@keyframes sh-flash {
+  0% { opacity: 0; transform: scale(0.3); }
+  25% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 0; transform: scale(0.9); }
+}
+@keyframes sh-shells {
+  0% { opacity: 1; transform: translate(0,0) rotate(0); }
+  100% { opacity: 0; transform: translate(10px,-16px) rotate(140deg); }
+}
+
+/* SUPER — gran ráfaga sostenida, inclinación por retroceso */
+.shelly.st-super .sh-upper { animation: sh-superlean 1.15s ease-out; }
+.shelly.st-super .sh-gun { animation: sh-superrecoil 1.15s ease-out; }
+.shelly.st-super .sh-flash { animation: sh-superflash 1.15s ease-out; transform-origin: 0% 50%; }
+.shelly.st-super .sh-body { animation: sh-supershake 0.12s linear 6; }
+@keyframes sh-superlean { 15% { transform: rotate(-12deg); } 60% { transform: rotate(-9deg); } 100% { transform: rotate(0); } }
+@keyframes sh-superrecoil { 15% { transform: translateX(-11px); } 100% { transform: translateX(0); } }
+@keyframes sh-superflash {
+  0% { opacity: 0; transform: scale(0.4); }
+  18% { opacity: 1; transform: scale(2.1); }
+  70% { opacity: 0.9; transform: scale(1.7); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+@keyframes sh-supershake { 50% { transform: translateX(1.5px); } }
+
+/* HURT — retroceso brusco (el flash rojo lo aporta la capa .unit-body) */
+.shelly.st-hurt .sh-upper { animation: sh-hurt 0.24s ease-out; }
+.shelly.st-hurt .sh-head { animation: sh-hurthead 0.24s ease-out; }
+@keyframes sh-hurt { 40% { transform: rotate(-15deg) translateX(-3px); } }
+@keyframes sh-hurthead { 40% { transform: rotate(6deg); } }
+.unit.fullbody.hurt-flash .unit-body::after {
+  content: ""; position: absolute; inset: 12% 20%; border-radius: 40%;
+  background: rgb(255 45 45 / 0.55); animation: hurt-fade 0.24s ease-out forwards; pointer-events: none;
+}
+
+/* KO — tumbada, más visible que las demás unidades caídas */
+.unit.fullbody.dead { opacity: 0.72; }
+.unit.fullbody.dead .unit-body { transform: none; filter: grayscale(0.55) brightness(0.85); }
+.unit.fullbody.dead .unit-tag { visibility: hidden; }
+/* rota sobre los pies para que quede tumbada a ras de suelo, no volando */
+.shelly.st-ko .sh-body { transform-origin: 52% 88%; transform: rotate(-80deg) translateY(6px); }
+
+/* VICTORY — pose triunfal con rebote */
+.shelly.st-victory .sh-body { animation: sh-vic 0.7s ease-in-out infinite; }
+.shelly.st-victory .sh-gun { transform: rotate(-42deg) translate(-4px, -6px); }
+.shelly.st-victory .sh-upper { transform: rotate(3deg); }
+@keyframes sh-vic { 50% { transform: translateY(-6px); } }
 .unit.boss .unit-body {
   width: 88px;
   height: 88px;
@@ -1074,7 +1163,9 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; bord
 
 @media (prefers-reduced-motion: reduce) {
   .banner-burst, .card.ready, .battle-btn.ready, .pip.now,
-  .unit.strut .unit-body, .super-tag, .stun-stars, .deco.gem, .bot-eye { animation: none; }
+  .unit.strut .unit-body, .super-tag, .stun-stars, .deco.gem, .bot-eye,
+  .shelly .sh-body, .shelly .sh-head, .shelly .sh-legF, .shelly .sh-legB,
+  .shelly .sh-upper, .shelly .sh-gun, .shelly .sh-flash, .shelly .sh-shells { animation: none; }
   .arena.shake { animation: none; }
   .arena-floor, .decor { transition: none; }
 }

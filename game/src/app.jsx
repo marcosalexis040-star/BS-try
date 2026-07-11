@@ -99,6 +99,9 @@ const BRAWLERS = [
   B("Kit", "LEGENDARIO", "APOYO", "#ffb84b", "🐱", "Achuchón", { s: "#ffb84b", h: "ears", hc: "#e09a2e", hc2: "#ffd8a0", e: "happy", m: "fangs", x: "whiskers" }),
 ];
 
+// Brawlers con sprite vectorial de cuerpo completo animado (los demás usan retrato)
+BRAWLERS.find((b) => b.name === "Shelly").sprite = "shelly";
+
 const RARITY_ORDER = ["ESPECIAL", "SUPERESPECIAL", "EPICO", "MITICO", "LEGENDARIO"];
 
 const initialsOf = (name) => {
@@ -133,14 +136,14 @@ function makeAlly(brawler, slot) {
   const maxHp = Math.round(role.hp * mult);
   return {
     uid: UID++, name: brawler.name, initials: initialsOf(brawler.name),
-    emoji: brawler.emoji, superName: brawler.superName, face: brawler.face,
+    emoji: brawler.emoji, superName: brawler.superName, face: brawler.face, sprite: brawler.sprite,
     color: brawler.c, role: brawler.role, rarity: brawler.rarity,
     side: "ally", slot, boss: false, clone: false,
     maxHp, hp: maxHp, atk: Math.round(role.atk * mult),
     interval: role.interval, range: role.range,
     cd: 300 + Math.random() * 700, energy: 0, alive: true,
     stunUntil: 0, slowUntil: 0, poisonUntil: 0, poisonDps: 0, poisonTickAt: 0,
-    lastAttack: -1e9, lastHit: -1e9, lastHeal: -1e9, bornAt: 0, lastSmash: 0,
+    lastAttack: -1e9, lastHit: -1e9, lastHeal: -1e9, lastSuper: -1e9, bornAt: 0, lastSmash: 0,
   };
 }
 
@@ -148,14 +151,14 @@ function makeEnemy(tpl, slot, bornAt) {
   const maxHp = Math.round(tpl.hp);
   return {
     uid: UID++, name: tpl.name, initials: tpl.initials, color: tpl.color,
-    emoji: tpl.emoji, face: tpl.face, bot: tpl.bot,
+    emoji: tpl.emoji, face: tpl.face, bot: tpl.bot, sprite: tpl.sprite,
     role: tpl.role || "BOT", rarity: null, side: "enemy", slot,
     boss: !!tpl.boss, clone: !!tpl.clone,
     maxHp, hp: maxHp, atk: Math.round(tpl.atk),
     interval: tpl.interval, range: tpl.range,
     cd: 600 + Math.random() * 900, energy: 0, alive: true,
     stunUntil: 0, slowUntil: 0, poisonUntil: 0, poisonDps: 0, poisonTickAt: 0,
-    lastAttack: -1e9, lastHit: -1e9, lastHeal: -1e9, bornAt, lastSmash: bornAt,
+    lastAttack: -1e9, lastHit: -1e9, lastHeal: -1e9, lastSuper: -1e9, bornAt, lastSmash: bornAt,
   };
 }
 
@@ -167,7 +170,7 @@ function darkClone(scale, exclude) {
   const role = ROLES[b.role];
   return {
     name: "Dark " + b.name, initials: initialsOf(b.name), color: b.c, emoji: b.emoji,
-    face: b.face, role: b.role, clone: true, range: role.range, interval: role.interval,
+    face: b.face, sprite: b.sprite, role: b.role, clone: true, range: role.range, interval: role.interval,
     hp: role.hp * 0.85 * scale, atk: role.atk * 0.9 * scale,
   };
 }
@@ -460,6 +463,7 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
     if (!u.alive || u.energy < 100 || g.result || g.phase !== "fight") return;
     const role = ROLES[u.role];
     u.energy = 0;
+    u.lastSuper = g.t;
     sfx("super");
     g.phase = "banner";
     g.banner = {
@@ -631,8 +635,8 @@ function BattleScreen({ squad, sfx, muted, onMute, onExit }) {
           </div>
         </div>
 
-        {g.allies.map((u) => <UnitSprite key={u.uid} u={u} t={g.t} walking={g.phase === "walk"} />)}
-        {g.enemies.map((u) => <UnitSprite key={u.uid} u={u} t={g.t} walking={false} />)}
+        {g.allies.map((u) => <UnitSprite key={u.uid} u={u} t={g.t} walking={g.phase === "walk"} won={g.result === "victory"} />)}
+        {g.enemies.map((u) => <UnitSprite key={u.uid} u={u} t={g.t} walking={false} won={false} />)}
         <FxLayer fx={g.fx} t={g.t} />
 
         {g.banner && g.t < g.banner.until && (
@@ -1000,6 +1004,105 @@ function BotFace({ kind = "scrappy", size = 44 }) {
   );
 }
 
+/* ------------------------------------------------------------
+   Shelly — sprite vectorial de cuerpo completo con máquina de
+   estados (idle · move · attack · super · hurt · ko · victory).
+   Fiel a la hoja de referencia: coleta morada con diadema de
+   estrella, bandana amarilla, jeans azules y escopeta.
+   ------------------------------------------------------------ */
+
+// Decide el estado de animación primario a partir del estado de la unidad
+function shellyState(u, t, won, walking) {
+  if (!u.alive) return "ko";
+  if (won) return "victory";
+  if (t - u.lastSuper < 1150) return "super";
+  if (t - u.lastHit < 240) return "hurt";
+  if (t - u.lastAttack < 300) return "attack";
+  if (walking) return "run";
+  return "idle";
+}
+
+export function ShellySprite({ u, t, won, walking, size = 96 }) {
+  const st = shellyState(u, t, won, walking);
+  const SK = "#c88a5c", SKD = "#a86e44";       // piel
+  const HR = "#7d33cf", HRL = "#9a55e8";        // pelo morado
+  const YL = "#ffc83d", YLD = "#e0a52b";        // amarillo (bandana/diadema)
+  const SH = "#c3cdee", SHD = "#a3aedb";        // camisa
+  const JN = "#39456e", JND = "#2b3556";        // jeans
+  const GM = "#9aa3b5", GMD = "#6d7587";        // metal escopeta
+  const BT = "#28304c";                          // botas
+
+  return (
+    <div className={"shelly st-" + st} aria-hidden="true">
+      <svg viewBox="0 0 92 120" width={size} height={size * 1.3} className="shelly-svg">
+        <ellipse className="sh-shadow" cx="46" cy="112" rx="27" ry="5" fill="#000" opacity="0.32" />
+        <g className="sh-body">
+          {/* piernas */}
+          <g className="sh-legB">
+            <rect x="38" y="70" width="10" height="30" rx="5" fill={JND} stroke={INK} strokeWidth="2" />
+            <path d="M34 98 h16 a4 4 0 0 1 4 4 v2 a4 4 0 0 1 -4 4 h-18 a3 3 0 0 1 -3 -3 v-3 a4 4 0 0 1 5 -4 Z" fill={BT} stroke={INK} strokeWidth="2" />
+          </g>
+          <g className="sh-legF">
+            <rect x="48" y="70" width="11" height="32" rx="5" fill={JN} stroke={INK} strokeWidth="2" />
+            <path d="M45 100 h17 a4 4 0 0 1 4 4 v2 a4 4 0 0 1 -4 4 h-19 a3 3 0 0 1 -3 -3 v-3 a4 4 0 0 1 5 -4 Z" fill={BT} stroke={INK} strokeWidth="2" />
+          </g>
+
+          <g className="sh-upper">
+            {/* pelo trasero / coleta */}
+            <path className="sh-pony" d="M40 30 Q16 24 20 8 Q27 16 30 12 Q26 24 36 19 Q28 30 44 27 Z"
+              fill={HR} stroke={INK} strokeWidth="2" strokeLinejoin="round" />
+            {/* torso + bandana */}
+            <path d="M35 50 Q46 43 58 50 L61 74 Q46 80 33 74 Z" fill={SH} stroke={INK} strokeWidth="2.2" strokeLinejoin="round" />
+            <path d="M40 72 L54 72 L57 74 Q46 79 36 74 Z" fill={SHD} />
+            <path d="M37 51 Q46 59 56 51 L53 58 Q46 62 40 58 Z" fill={YL} stroke={INK} strokeWidth="2" strokeLinejoin="round" />
+            <path d="M52 55 L60 62 L55 64 L49 57 Z" fill={YLD} stroke={INK} strokeWidth="1.5" />
+            {/* brazo trasero sujetando el cañón */}
+            <path d="M40 54 Q34 62 44 66 L50 60 Z" fill={SKD} stroke={INK} strokeWidth="2" strokeLinejoin="round" />
+
+            {/* escopeta */}
+            <g className="sh-gun">
+              <rect x="47" y="60" width="15" height="8" rx="2" fill={GMD} stroke={INK} strokeWidth="2" />
+              <rect x="58" y="55" width="30" height="10" rx="3.5" fill={GM} stroke={INK} strokeWidth="2.2" />
+              <rect x="60" y="65" width="17" height="5" rx="2.5" fill={GMD} stroke={INK} strokeWidth="1.8" />
+              <rect x="84" y="53.5" width="5" height="13" rx="2" fill={GMD} stroke={INK} strokeWidth="2" />
+              <circle cx="86.5" cy="60" r="2.2" fill="#1b1f2b" />
+            </g>
+            {/* brazo delantero al gatillo */}
+            <path d="M50 53 Q58 57 55 64 L49 60 Z" fill={SK} stroke={INK} strokeWidth="2" strokeLinejoin="round" />
+
+            {/* cabeza */}
+            <g className="sh-head">
+              <circle cx="45" cy="32" r="15" fill={SK} stroke={INK} strokeWidth="2.2" />
+              <path d="M31 34 Q33 45 45 46 Q57 45 59 34 Q56 44 45 44 Q34 44 31 34 Z" fill={INK} opacity="0.12" />
+              {/* flequillo + diadema con estrella */}
+              <path d="M31 30 Q32 17 45 16 Q58 17 59 30 Q54 22 45 23 Q36 22 31 30 Z" fill={HR} stroke={INK} strokeWidth="2" strokeLinejoin="round" />
+              <path d="M31 27 Q45 20 59 27 L58 31 Q45 24 32 31 Z" fill={YL} stroke={INK} strokeWidth="1.8" />
+              <path d="M52 22 l1.6 3.4 3.7 .4 -2.8 2.5 .8 3.6 -3.3 -1.9 -3.3 1.9 .8 -3.6 -2.8 -2.5 3.7 -.4 Z" fill="#fff3a0" stroke={INK} strokeWidth="0.8" />
+              {/* ojos con cejas de pelea + sonrisa ladeada */}
+              <path d="M36 30 L43 32.5 M54 30 L47 32.5" stroke={INK} strokeWidth="2.4" strokeLinecap="round" />
+              <circle cx="40.5" cy="35" r="2.5" fill={INK} />
+              <circle cx="49.5" cy="35" r="2.5" fill={INK} />
+              <circle cx="41.3" cy="34.2" r="0.8" fill="#fff" />
+              <circle cx="50.3" cy="34.2" r="0.8" fill="#fff" />
+              <path d="M40 41 Q46 45 52 40" stroke={INK} strokeWidth="2.2" fill="none" strokeLinecap="round" />
+            </g>
+
+            {/* fogonazo + casquillos (visibles al atacar/super) */}
+            <g className="sh-flash">
+              <path d="M88 60 l13 -7 -4 7 5 6 -8 -2 -2 8 -4 -8 Z" fill="#ff9a2b" stroke="#ffde6b" strokeWidth="1" />
+              <path d="M88 60 l9 -4 -3 4 3 4 -6 -1 -1 5 -3 -6 Z" fill="#fff3a0" />
+            </g>
+            <g className="sh-shells">
+              <rect x="62" y="52" width="5" height="3" rx="1.2" fill={YLD} stroke={INK} strokeWidth="0.8" />
+              <rect x="66" y="50" width="5" height="3" rx="1.2" fill="#c88a2b" stroke={INK} strokeWidth="0.8" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 // Decoración de la mina: gemas, vagonetas, arbustos, barriles, cajas y rocas.
 // Posiciones fijas sobre una capa al 150% de ancho que hace parallax entre olas.
 const DECOR = [
@@ -1048,7 +1151,7 @@ function MineDecor({ wave }) {
   );
 }
 
-function UnitSprite({ u, t, walking }) {
+function UnitSprite({ u, t, walking, won }) {
   const p = posOf(u);
   const attacking = t - u.lastAttack < 350;
   const hurt = t - u.lastHit < 260;
@@ -1060,10 +1163,12 @@ function UnitSprite({ u, t, walking }) {
     : u.boss ? "#ff4b5c" : u.clone ? "#a24bff" : "#8aa0c8";
   const cls = [
     "unit", u.side, u.boss ? "boss" : "", u.clone ? "clone" : "",
-    u.alive ? "" : "dead",
-    attacking ? (u.side === "ally" ? "lunge-r" : "lunge-l") : "",
-    hurt ? "hurt" : "", healed ? "healed" : "", stunned ? "stunned" : "",
-    poisoned ? "poisoned" : "", entering ? "entering" : "", walking && u.alive ? "strut" : "",
+    u.sprite ? "fullbody" : "", u.alive ? "" : "dead",
+    // el sprite de cuerpo completo maneja su propia lunge/hurt internamente
+    attacking && !u.sprite ? (u.side === "ally" ? "lunge-r" : "lunge-l") : "",
+    hurt && !u.sprite ? "hurt" : "", hurt && u.sprite ? "hurt-flash" : "",
+    healed ? "healed" : "", stunned ? "stunned" : "",
+    poisoned ? "poisoned" : "", entering ? "entering" : "", walking && u.alive && !u.sprite ? "strut" : "",
   ].filter(Boolean).join(" ");
 
   return (
@@ -1076,11 +1181,13 @@ function UnitSprite({ u, t, walking }) {
         </span>
       </div>
       <div className="unit-body">
-        {u.face ? <BrawlerFace f={u.face} size={u.boss ? 76 : 44} />
-          : <BotFace kind={u.bot} size={u.boss ? 76 : 44} />}
+        {u.sprite === "shelly"
+          ? <ShellySprite u={u} t={t} won={won} walking={walking} size={u.boss ? 118 : 92} />
+          : u.face ? <BrawlerFace f={u.face} size={u.boss ? 76 : 44} />
+            : <BotFace kind={u.bot} size={u.boss ? 76 : 44} />}
         {stunned && <span className="stun-stars" aria-hidden="true">✦ ✦ ✦</span>}
       </div>
-      <span className="unit-shadow" aria-hidden="true" />
+      {!u.sprite && <span className="unit-shadow" aria-hidden="true" />}
     </div>
   );
 }
@@ -1206,4 +1313,5 @@ function ResultOverlay({ win, g, onRetry, onExit, sfx }) {
   );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+const rootEl = typeof document !== "undefined" && document.getElementById("root");
+if (rootEl) createRoot(rootEl).render(<App />);
