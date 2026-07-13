@@ -1,10 +1,50 @@
 # BS-try
 
-Proyecto de videojuego. Este repositorio incluye una herramienta integrada para
-**generar imágenes, videos y animaciones con IA** que puedes usar para producir
-assets del juego (fondos, sprites, cinemáticas, animaciones, lip-sync, etc.).
+Proyecto de videojuego. Este repositorio incluye un **mini-juego jugable** con el
+personaje Shelly y una herramienta integrada para **generar imágenes, videos y
+animaciones con IA** para producir assets del juego.
 
-## 🎬 Generación de video y animaciones — `open-generative-ai/`
+## 🎮 Shelly Arena — `game/`
+
+Un shooter top-down jugable en HTML5 (sin dependencias). Controlas a **Shelly**,
+una heroína con escopeta, en una arena contra oleadas de enemigos.
+
+- **Controles:** moverse con `WASD` / flechas, apuntar con el ratón, disparar con
+  clic o `espacio`.
+- **Mecánicas:** escopeta con dispersión de perdigones, munición + recarga,
+  enemigos que te persiguen (dos tipos), puntuación, barra de vida y game over.
+
+### Cómo jugar
+
+Solo necesitas servir la carpeta `game/` con cualquier servidor estático:
+
+```bash
+cd game
+npx serve .        # o: python3 -m http.server 8000
+# abre http://localhost:8000 (o el puerto que indique)
+```
+
+### Los sprites de Shelly
+
+Los sprites son **pixel-art original** generados por código (sin dependencias
+externas, con un codificador PNG propio). El generador está en
+`game/tools/gen_sprites.js` y produce el spritesheet y los frames sueltos:
+
+```bash
+node game/tools/gen_sprites.js
+```
+
+| Archivo | Contenido |
+| --- | --- |
+| `game/assets/shelly.png` | Spritesheet 128×40 (4 frames: idle, walk1, walk2, shoot) |
+| `game/assets/shelly_idle.png` … `shelly_shoot.png` | Frames individuales 32×40 |
+| `game/assets/shelly_preview.png` | Vista previa ampliada 6× del spritesheet |
+| `game/assets/screenshot_gameplay.png` | Captura del juego en marcha |
+
+> Los sprites son un diseño propio (heroína de cabello rosa con escopeta), no arte
+> oficial de ningún juego.
+
+## 🎬 Generación de video y animaciones con IA — `open-generative-ai/`
 
 En la carpeta [`open-generative-ai/`](./open-generative-ai) está integrada una
 copia de [Open Generative AI](https://github.com/Anil-matcha/Open-Generative-AI)
