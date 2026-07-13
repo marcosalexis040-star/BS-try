@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" width="360" height="480">
+  <defs>
+    <radialGradient id="co-skin" cx="42%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#ffe1c2"/><stop offset="70%" stop-color="#f3bd92"/><stop offset="100%" stop-color="#dd9c6c"/>
+    </radialGradient>
+    <linearGradient id="co-hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffb14d"/><stop offset="60%" stop-color="#f2812a"/><stop offset="100%" stop-color="#d5641a"/>
+    </linearGradient>
+    <linearGradient id="co-vest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a80e0"/><stop offset="100%" stop-color="#274f9e"/>
+    </linearGradient>
+    <linearGradient id="co-pants" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a496e"/><stop offset="100%" stop-color="#28324e"/>
+    </linearGradient>
+    <linearGradient id="co-metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d3d9e4"/><stop offset="55%" stop-color="#98a0b0"/><stop offset="100%" stop-color="#6d7484"/>
+    </linearGradient>
+    <radialGradient id="co-iris" cx="42%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#a7d8ff"/><stop offset="100%" stop-color="#2b7fc9"/>
+    </radialGradient>
+    <filter id="co-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+  </defs>
+
+  <ellipse cx="180" cy="458" rx="96" ry="17" fill="#1c2436" opacity="0.28" filter="url(#co-soft)"/>
+
+  <!-- piernas / pantalón -->
+  <path d="M146 320 L214 320 L212 424 L186 424 L180 350 L174 424 L148 424 Z" fill="url(#co-pants)" stroke="#232c44" stroke-width="3"/>
+  <!-- botas -->
+  <g stroke="#3f2c1a" stroke-width="3">
+    <path d="M146 418 L176 418 L178 452 C178 458 146 460 142 452 Z" fill="#6b4a2e"/>
+    <path d="M184 418 L214 418 L218 452 C214 460 182 458 182 452 Z" fill="#6b4a2e"/>
+  </g>
+
+  <!-- brazo izquierdo extendido con revólver -->
+  <path d="M118 244 C86 250 66 268 60 292 L84 300 C92 282 108 272 128 272 Z" fill="url(#co-vest)" stroke="#22467f" stroke-width="3"/>
+  <circle cx="70" cy="298" r="15" fill="url(#co-skin)" stroke="#c98a5e" stroke-width="2.5"/>
+  <g transform="rotate(-8 60 296)" stroke="#3d424e" stroke-width="2.5">
+    <rect x="30" y="288" width="46" height="14" rx="5" fill="url(#co-metal)"/>
+    <rect x="58" y="298" width="12" height="20" rx="4" fill="#5a3c22" stroke="#3a2614"/>
+    <circle cx="66" cy="295" r="7" fill="#7c8494" stroke="#3d424e"/>
+  </g>
+
+  <!-- torso: chaleco azul sobre camisa -->
+  <path d="M118 232 C132 216 152 210 180 210 C208 210 228 216 242 232 L228 326 L132 326 Z" fill="#efe9d8" stroke="#c7bfa6" stroke-width="2.5"/>
+  <path d="M126 230 C140 216 156 212 180 214 L172 322 L134 322 Z" fill="url(#co-vest)" stroke="#22467f" stroke-width="3"/>
+  <path d="M234 230 C220 216 204 212 180 214 L188 322 L226 322 Z" fill="url(#co-vest)" stroke="#22467f" stroke-width="3"/>
+  <!-- botones dorados -->
+  <circle cx="180" cy="240" r="5" fill="#f0c34a" stroke="#a97e1e" stroke-width="1.5"/>
+  <circle cx="180" cy="268" r="5" fill="#f0c34a" stroke="#a97e1e" stroke-width="1.5"/>
+  <circle cx="180" cy="296" r="5" fill="#f0c34a" stroke="#a97e1e" stroke-width="1.5"/>
+  <!-- cinturón con hebilla -->
+  <rect x="132" y="318" width="96" height="16" rx="5" fill="#4a3120" stroke="#2c1c10" stroke-width="2.5"/>
+  <rect x="170" y="319" width="20" height="14" rx="3" fill="#f0c34a" stroke="#a97e1e" stroke-width="2"/>
+
+  <!-- brazo derecho con revólver hacia arriba -->
+  <path d="M242 244 C272 246 292 262 300 286 L276 296 C266 278 252 270 232 270 Z" fill="url(#co-vest)" stroke="#22467f" stroke-width="3"/>
+  <circle cx="292" cy="290" r="15" fill="url(#co-skin)" stroke="#c98a5e" stroke-width="2.5"/>
+  <g transform="rotate(-40 292 288)" stroke="#3d424e" stroke-width="2.5">
+    <rect x="286" y="250" width="14" height="46" rx="5" fill="url(#co-metal)"/>
+    <rect x="284" y="284" width="20" height="12" rx="4" fill="#5a3c22" stroke="#3a2614"/>
+  </g>
+
+  <!-- cabeza -->
+  <circle cx="180" cy="150" r="68" fill="url(#co-skin)" stroke="#d59768" stroke-width="2.5"/>
+  <circle cx="114" cy="158" r="11" fill="url(#co-skin)" stroke="#d59768" stroke-width="2"/>
+  <circle cx="246" cy="158" r="11" fill="url(#co-skin)" stroke="#d59768" stroke-width="2"/>
+
+  <!-- rostro (guiño pícaro) -->
+  <g>
+    <path d="M140 122 q18 -9 34 -1" stroke="#c85f18" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M188 121 q18 -8 34 1" stroke="#c85f18" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- ojo izq abierto -->
+    <ellipse cx="153" cy="152" rx="16" ry="20" fill="#fff" stroke="#5a3a2e" stroke-width="2.5"/>
+    <circle cx="156" cy="155" r="11" fill="url(#co-iris)"/>
+    <circle cx="156" cy="155" r="5" fill="#20263a"/>
+    <circle cx="160" cy="150" r="3.2" fill="#fff"/>
+    <!-- ojo der guiñado -->
+    <path d="M192 154 q16 -8 32 0" stroke="#5a3a2e" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- nariz + sonrisa -->
+    <path d="M178 168 q4 5 -2 8" stroke="#c98a5e" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M156 184 q26 22 50 -2" stroke="#8a3a2e" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M158 186 q24 14 46 -2 q-22 8 -46 2 Z" fill="#fff"/>
+    <ellipse cx="134" cy="176" rx="11" ry="7" fill="#ff9a6a" opacity="0.4"/>
+    <ellipse cx="226" cy="176" rx="11" ry="7" fill="#ff9a6a" opacity="0.4"/>
+  </g>
+
+  <!-- cabello ginger peinado hacia atrás con copete -->
+  <path d="M112 130 C112 74 148 52 180 52 C214 52 250 74 250 132 C238 110 224 102 210 104 C214 92 210 82 200 76 C204 92 198 104 190 110 C186 92 176 84 166 84 C170 96 166 106 160 112 C154 96 142 92 130 96 C138 82 150 76 160 74 C138 78 120 96 112 130 Z"
+        fill="url(#co-hair)" stroke="#bf5716" stroke-width="3"/>
+  <path d="M180 52 C196 52 214 60 226 76 C210 68 194 66 180 68 Z" fill="#ffc06a" opacity="0.7"/>
+  <!-- patillas -->
+  <path d="M112 150 C110 128 116 112 124 104 C122 128 128 150 138 166 C126 180 114 172 112 150 Z" fill="url(#co-hair)" stroke="#bf5716" stroke-width="3"/>
+  <path d="M248 150 C250 128 244 112 236 104 C238 128 232 150 222 166 C234 180 246 172 248 150 Z" fill="url(#co-hair)" stroke="#bf5716" stroke-width="3"/>
+</svg>

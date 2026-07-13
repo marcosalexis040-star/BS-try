@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" width="360" height="480">
+  <defs>
+    <radialGradient id="sh-skin" cx="42%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#ffe3c6"/><stop offset="70%" stop-color="#f4c19a"/><stop offset="100%" stop-color="#e0a578"/>
+    </radialGradient>
+    <linearGradient id="sh-hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff8ec6"/><stop offset="55%" stop-color="#ec2f8c"/><stop offset="100%" stop-color="#c11f6e"/>
+    </linearGradient>
+    <linearGradient id="sh-top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c3ce6d"/><stop offset="100%" stop-color="#8a9a3f"/>
+    </linearGradient>
+    <linearGradient id="sh-short" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5f79aa"/><stop offset="100%" stop-color="#3a4d76"/>
+    </linearGradient>
+    <linearGradient id="sh-metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d3d9e4"/><stop offset="55%" stop-color="#98a0b0"/><stop offset="100%" stop-color="#6d7484"/>
+    </linearGradient>
+    <radialGradient id="sh-iris" cx="42%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#8ff0e6"/><stop offset="100%" stop-color="#149b93"/>
+    </radialGradient>
+    <filter id="sh-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+  </defs>
+
+  <!-- sombra en el suelo -->
+  <ellipse cx="180" cy="458" rx="92" ry="17" fill="#1c2436" opacity="0.28" filter="url(#sh-soft)"/>
+
+  <!-- cabello trasero -->
+  <path d="M180 60 C255 62 288 120 282 205 C278 262 250 268 236 250 C246 205 240 150 205 128 L155 128 C120 150 114 205 124 250 C110 268 82 262 78 205 C72 120 105 62 180 60 Z"
+        fill="url(#sh-hair)" stroke="#a51a5f" stroke-width="3"/>
+
+  <!-- piernas -->
+  <g stroke="#b07a52" stroke-width="3">
+    <rect x="150" y="360" width="26" height="60" rx="12" fill="url(#sh-skin)"/>
+    <rect x="184" y="360" width="26" height="60" rx="12" fill="url(#sh-skin)"/>
+  </g>
+  <!-- botas -->
+  <g stroke="#3f3226" stroke-width="3">
+    <rect x="144" y="412" width="34" height="48" rx="12" fill="#6b563f"/>
+    <rect x="182" y="412" width="34" height="48" rx="12" fill="#6b563f"/>
+    <rect x="144" y="412" width="34" height="12" rx="6" fill="#8a725660"/>
+    <rect x="182" y="412" width="34" height="12" rx="6" fill="#8a725660"/>
+  </g>
+
+  <!-- shorts de mezclilla -->
+  <path d="M146 316 L214 316 L214 360 C214 372 202 378 190 372 L180 350 L170 372 C158 378 146 372 146 360 Z"
+        fill="url(#sh-short)" stroke="#2f4066" stroke-width="3"/>
+  <!-- cinturón -->
+  <rect x="144" y="308" width="72" height="14" rx="6" fill="#7a5230" stroke="#4f351e" stroke-width="2.5"/>
+  <rect x="174" y="309" width="12" height="12" rx="3" fill="#d9b45a" stroke="#4f351e" stroke-width="2"/>
+
+  <!-- torso: top olivo -->
+  <path d="M120 224 C132 210 150 206 180 206 C210 206 228 210 240 224 L226 316 L134 316 Z"
+        fill="url(#sh-top)" stroke="#66772c" stroke-width="3"/>
+  <!-- tirantes -->
+  <path d="M150 210 L162 250" stroke="#66772c" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M210 210 L198 250" stroke="#66772c" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <!-- sombra bajo el busto -->
+  <path d="M140 258 C160 274 200 274 220 258" stroke="#71812f" stroke-width="6" fill="none" opacity="0.6" stroke-linecap="round"/>
+
+  <!-- brazo izquierdo (sostiene el cañón) -->
+  <path d="M124 232 C104 250 100 286 120 300 L140 286 C128 272 132 250 146 240 Z" fill="url(#sh-skin)" stroke="#b07a52" stroke-width="3"/>
+
+  <!-- escopeta cruzada -->
+  <g transform="rotate(-16 183 296)" stroke="#4a4f5c" stroke-width="3">
+    <rect x="116" y="288" width="112" height="16" rx="7" fill="url(#sh-metal)"/>          <!-- cañón -->
+    <rect x="106" y="284" width="14" height="24" rx="4" fill="#6d7484"/>                    <!-- boca -->
+    <rect x="150" y="283" width="36" height="24" rx="7" fill="#8a5a34" stroke="#5c3c22"/>   <!-- bomba -->
+    <rect x="222" y="284" width="24" height="22" rx="5" fill="#565d6b"/>                     <!-- recámara -->
+    <rect x="244" y="289" width="34" height="16" rx="6" fill="#8a5a34" stroke="#5c3c22"/>   <!-- culata -->
+    <path d="M228 306 q6 14 18 7" stroke="#565d6b" stroke-width="4" fill="none"/>            <!-- guardamonte -->
+  </g>
+
+  <!-- cabeza -->
+  <circle cx="180" cy="150" r="70" fill="url(#sh-skin)" stroke="#d99a72" stroke-width="2.5"/>
+  <!-- orejas -->
+  <circle cx="112" cy="158" r="12" fill="url(#sh-skin)" stroke="#d99a72" stroke-width="2"/>
+  <circle cx="248" cy="158" r="12" fill="url(#sh-skin)" stroke="#d99a72" stroke-width="2"/>
+
+  <!-- rostro -->
+  <g>
+    <!-- cejas -->
+    <path d="M138 120 q18 -10 34 -2" stroke="#c11f6e" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M188 118 q18 -8 34 2" stroke="#c11f6e" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- ojos -->
+    <ellipse cx="152" cy="150" rx="17" ry="21" fill="#fff" stroke="#5a3a52" stroke-width="2.5"/>
+    <ellipse cx="208" cy="150" rx="17" ry="21" fill="#fff" stroke="#5a3a52" stroke-width="2.5"/>
+    <circle cx="155" cy="153" r="12" fill="url(#sh-iris)"/>
+    <circle cx="205" cy="153" r="12" fill="url(#sh-iris)"/>
+    <circle cx="155" cy="153" r="5.5" fill="#20263a"/>
+    <circle cx="205" cy="153" r="5.5" fill="#20263a"/>
+    <circle cx="159" cy="148" r="3.5" fill="#fff"/>
+    <circle cx="209" cy="148" r="3.5" fill="#fff"/>
+    <!-- pestañas -->
+    <path d="M135 142 q8 -6 17 -5" stroke="#5a3a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M208 137 q10 0 17 6" stroke="#5a3a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- nariz + boca -->
+    <path d="M178 168 q4 5 -2 8" stroke="#d99a72" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M162 186 q18 16 36 0" stroke="#a5484f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- rubor -->
+    <ellipse cx="132" cy="176" rx="12" ry="8" fill="#ff8fa6" opacity="0.45"/>
+    <ellipse cx="228" cy="176" rx="12" ry="8" fill="#ff8fa6" opacity="0.45"/>
+  </g>
+
+  <!-- flequillo y mechones delanteros -->
+  <path d="M112 128 C118 78 150 58 180 58 C210 58 244 78 250 130 C232 106 214 100 196 104 C206 116 208 128 204 138 C190 118 168 116 150 128 C150 116 156 108 164 104 C140 104 122 114 112 128 Z"
+        fill="url(#sh-hair)" stroke="#a51a5f" stroke-width="3"/>
+  <path d="M78 150 C74 120 84 96 100 86 C96 120 104 150 118 170 C104 188 82 182 78 150 Z" fill="url(#sh-hair)" stroke="#a51a5f" stroke-width="3"/>
+  <path d="M282 150 C286 120 276 96 260 86 C264 120 256 150 242 170 C256 188 278 182 282 150 Z" fill="url(#sh-hair)" stroke="#a51a5f" stroke-width="3"/>
+  <!-- brillo del cabello -->
+  <path d="M150 74 C168 66 190 66 206 74" stroke="#ffb3d8" stroke-width="6" fill="none" opacity="0.7" stroke-linecap="round"/>
+
+  <!-- mano derecha sobre el gatillo -->
+  <path d="M150 300 C138 320 150 344 172 340 C186 336 190 318 182 306 Z" fill="url(#sh-skin)" stroke="#b07a52" stroke-width="3"/>
+</svg>

@@ -44,6 +44,29 @@ node game/tools/gen_sprites.js
 > Los sprites son un diseño propio (heroína de cabello rosa con escopeta), no arte
 > oficial de ningún juego.
 
+## 🎨 Roster ilustrado (estilo suave) — `game/assets/characters/`
+
+Personajes en **estilo 2D suave / dibujo** (ilustración vectorial SVG con
+degradados y sombreado, al estilo del difunto *Disney Heroes: Battle Mode*).
+Son **diseños originales** inspirados en cada arquetipo, no arte oficial.
+
+| Personaje | Archetipo | Archivos |
+| --- | --- | --- |
+| **Shelly** | Heroína con escopeta | `characters/shelly.svg` · `shelly.png` |
+| **Colt** | Pistolero de dos revólveres | `characters/colt.svg` · `colt.png` |
+| **Spike** | Cactus | `characters/spike.svg` · `spike.png` |
+
+Los SVG son la fuente editable; los PNG (fondo transparente) se generan para el
+juego. Para regenerarlos:
+
+```bash
+node game/tools/render_svg.js   # exporta characters/*.png + roster_preview.png
+```
+
+> **Dirección del juego (en progreso):** una versión inspirada en *Disney Heroes:
+> Battle Mode* donde los enemigos son robots / sombras de los brawlers, creados
+> por **Sirius**, el brawler #100 (personaje original del proyecto).
+
 ## 🎬 Generación de video y animaciones con IA — `open-generative-ai/`
 
 En la carpeta [`open-generative-ai/`](./open-generative-ai) está integrada una

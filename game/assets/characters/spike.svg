@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" width="360" height="480">
+  <defs>
+    <radialGradient id="sp-body" cx="40%" cy="32%" r="80%">
+      <stop offset="0%" stop-color="#9ad86a"/><stop offset="60%" stop-color="#6cbb44"/><stop offset="100%" stop-color="#3f8f2c"/>
+    </radialGradient>
+    <radialGradient id="sp-arm" cx="40%" cy="35%" r="80%">
+      <stop offset="0%" stop-color="#8ecf5e"/><stop offset="100%" stop-color="#458f2d"/>
+    </radialGradient>
+    <radialGradient id="sp-flower" cx="45%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#ff9ec0"/><stop offset="100%" stop-color="#e63a76"/>
+    </radialGradient>
+    <filter id="sp-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+  </defs>
+
+  <ellipse cx="180" cy="452" rx="98" ry="18" fill="#1c2436" opacity="0.28" filter="url(#sp-soft)"/>
+
+  <!-- flor superior -->
+  <g stroke="#b81f56" stroke-width="3">
+    <ellipse cx="180" cy="70" rx="20" ry="26" fill="url(#sp-flower)"/>
+    <ellipse cx="150" cy="88" rx="22" ry="18" fill="url(#sp-flower)"/>
+    <ellipse cx="210" cy="88" rx="22" ry="18" fill="url(#sp-flower)"/>
+    <ellipse cx="160" cy="112" rx="20" ry="16" fill="url(#sp-flower)"/>
+    <ellipse cx="200" cy="112" rx="20" ry="16" fill="url(#sp-flower)"/>
+  </g>
+  <circle cx="180" cy="94" r="15" fill="#ffd75e" stroke="#d19a1e" stroke-width="2.5"/>
+  <circle cx="176" cy="90" r="4" fill="#fff" opacity="0.8"/>
+  <!-- tallo -->
+  <rect x="173" y="110" width="14" height="40" rx="6" fill="#4f9e33" stroke="#35701f" stroke-width="2.5"/>
+
+  <!-- espinas traseras (contorno) -->
+  <g fill="#e8f2b8" stroke="#8fae4e" stroke-width="1.5">
+    <path d="M70 210 l-22 -6 l20 -8 Z"/><path d="M64 260 l-24 0 l22 -10 Z"/><path d="M66 310 l-24 6 l22 -2 Z"/>
+    <path d="M78 356 l-20 14 l20 -4 Z"/>
+    <path d="M290 210 l22 -6 l-20 -8 Z"/><path d="M296 260 l24 0 l-22 -10 Z"/><path d="M294 310 l24 6 l-22 -2 Z"/>
+    <path d="M282 356 l20 14 l-20 -4 Z"/>
+  </g>
+
+  <!-- brazos cactus -->
+  <path d="M92 250 C58 244 44 278 56 312 C66 338 92 330 96 306 C86 300 84 286 96 280 Z" fill="url(#sp-arm)" stroke="#35701f" stroke-width="3"/>
+  <path d="M268 250 C302 244 316 278 304 312 C294 338 268 330 264 306 C274 300 276 286 264 280 Z" fill="url(#sp-arm)" stroke="#35701f" stroke-width="3"/>
+
+  <!-- cuerpo -->
+  <path d="M180 130 C244 130 288 190 288 288 C288 388 244 430 180 430 C116 430 72 388 72 288 C72 190 116 130 180 130 Z"
+        fill="url(#sp-body)" stroke="#2f6b1f" stroke-width="4"/>
+  <!-- costillas -->
+  <g stroke="#3f8f2c" stroke-width="5" fill="none" opacity="0.55" stroke-linecap="round">
+    <path d="M132 176 C118 240 118 330 138 396"/>
+    <path d="M180 168 C176 250 176 340 180 404"/>
+    <path d="M228 176 C242 240 242 330 222 396"/>
+  </g>
+
+  <!-- espinas frontales -->
+  <g fill="#eef6c4" stroke="#a7c25e" stroke-width="1.2">
+    <path d="M132 200 l-4 -14 l8 4 Z"/><path d="M180 190 l0 -14 l6 8 Z"/><path d="M228 200 l4 -14 l-8 4 Z"/>
+    <path d="M120 300 l-6 -12 l9 2 Z"/><path d="M240 300 l6 -12 l-9 2 Z"/>
+    <path d="M150 360 l-4 -13 l8 3 Z"/><path d="M210 360 l4 -13 l-8 3 Z"/>
+  </g>
+
+  <!-- piecitos -->
+  <ellipse cx="150" cy="430" rx="26" ry="16" fill="url(#sp-arm)" stroke="#35701f" stroke-width="3"/>
+  <ellipse cx="210" cy="430" rx="26" ry="16" fill="url(#sp-arm)" stroke="#35701f" stroke-width="3"/>
+
+  <!-- rostro tierno -->
+  <g>
+    <!-- ojos grandes -->
+    <ellipse cx="150" cy="268" rx="26" ry="30" fill="#fff" stroke="#2f6b1f" stroke-width="3"/>
+    <ellipse cx="210" cy="268" rx="26" ry="30" fill="#fff" stroke="#2f6b1f" stroke-width="3"/>
+    <circle cx="154" cy="274" r="15" fill="#2c3a1e"/>
+    <circle cx="206" cy="274" r="15" fill="#2c3a1e"/>
+    <circle cx="159" cy="268" r="5.5" fill="#fff"/>
+    <circle cx="211" cy="268" r="5.5" fill="#fff"/>
+    <circle cx="149" cy="280" r="2.6" fill="#fff" opacity="0.8"/>
+    <circle cx="201" cy="280" r="2.6" fill="#fff" opacity="0.8"/>
+    <!-- cejas suaves -->
+    <path d="M130 238 q20 -8 38 0" stroke="#2f6b1f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M192 238 q20 -8 38 0" stroke="#2f6b1f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- mejillas -->
+    <ellipse cx="118" cy="300" rx="14" ry="9" fill="#ff9a86" opacity="0.5"/>
+    <ellipse cx="242" cy="300" rx="14" ry="9" fill="#ff9a86" opacity="0.5"/>
+    <!-- boca sonriente -->
+    <path d="M156 306 q24 26 48 0" stroke="#245417" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M162 312 q18 14 36 0 q-18 4 -36 0 Z" fill="#e0637a"/>
+  </g>
+</svg>
